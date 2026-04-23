@@ -10,7 +10,22 @@
 ![Power Query](https://img.shields.io/badge/Power%20Query-085041?style=flat)
 
 ---
+## 🎥 Presentación en video (5-7 min)
+> [Ver video completo aquí]([https://TU-LINK-DEL-VIDEO](https://drive.google.com/file/d/1VIIK4bPf7t-mRZOfRQjf4Y-lOpx56QE-/view?usp=drive_link))
 
+---
+## Screenshots del dashboard
+
+### 📊 Resumen Ejecutivo — CEO / Directores
+![Resumen Ejecutivo](docs/screenshots/01_resumen_ejecutivo.png)
+
+### 🎯 Sales Performance — VP Sales
+![Sales Performance](docs/screenshots/02_sales_performance.png)
+
+### ⚙️ RevOps & Eficiencia — Operaciones
+![RevOps](docs/screenshots/03_revops_eficiencia.png)
+
+---
 ## Tabla de contenidos
 
 1. [Contexto del reto](#contexto-del-reto)
