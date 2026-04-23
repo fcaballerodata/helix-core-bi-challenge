@@ -259,9 +259,9 @@ PARTE 2 — Modelado paso a paso
 └── Paso 5 → Mockups de los 3 reportes con datos reales del modelo
 
 PARTE 3 — Análisis y entregables
-├── Extracción de insights con consultas DAX desde Claude
-├── Diseño de la presentación (5 slides + guión de video)
-└── Documentación (glosario, guión, README)
+├── Extracción de insights con consultas DAX desde Claude (.pbix)
+├── Diseño de la presentación (5 slides + video)
+└── Documentación (glosario + README)
 ```
 
 ### El prompt de 6 capas
@@ -278,8 +278,8 @@ La sesión comenzó con un prompt estructurado en 6 capas que definió el contex
 3. OBJETIVO: Dashboard en Power BI (3 reportes: Ejecutivo, Sales, RevOps)
    + Presentación + README. Enfoque AI First.
 
-4. RESTRICCIONES: 1 día de trabajo. Priorizar lo importante.
-   Deadline: 22/Abril/2026.
+4. RESTRICCIONES: 2 día de trabajo. Priorizar lo importante.
+   Deadline: 23/Abril/2026.
 
 5. FORMATO: Power BI con MCP Server. Lenguaje en español.
    Storytelling with Data (Cole Nussbaumer).
