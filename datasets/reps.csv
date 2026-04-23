@@ -1,0 +1,19 @@
+rep_id,rep_name,role,team,base_country,hire_date,quota_monthly,capacity_score
+SDR01,Sofía Ríos,SDR,Inbound,COL,2024-03-04,55,80
+SDR02,Mateo Silva,SDR,Inbound,MEX,2025-06-30,55,90
+SDR03,Ana Torres,SDR,Outbound,COL,2025-04-07,55,89
+SDR04,Diego Valdez,SDR,Outbound,MEX,2024-11-04,55,85
+AE01,Valentina Mora,AE,SMB,COL,2024-10-28,18,81
+AE02,Juan Pablo Mejía,AE,SMB,COL,2025-08-25,18,77
+AE03,Camila Ortiz,AE,SMB,MEX,2024-02-26,18,70
+AE04,Carlos Núñez,AE,SMB,MEX,2025-05-05,18,77
+AE05,Sara Peña,AE,SMB,DOM,2024-05-20,18,70
+AE06,Tomás Herrera,AE,SMB,PER,2024-03-04,18,80
+AE07,Mariana Solís,AE,Accountants,COL,2025-01-06,12,75
+AE08,Rodrigo Patiño,AE,Accountants,MEX,2025-11-17,12,74
+AE09,Laura Gómez,AE,Accountants,DOM,2025-06-02,12,71
+KAM01,Gabriela León,KAM,Accountants,COL,2025-06-16,90000,72
+KAM02,Sebastián Cruz,KAM,Accountants,MEX,2025-05-19,90000,65
+KAM03,Daniela Rivas,KAM,Accountants,COL,2025-07-07,90000,63
+KAM04,Andrés Gil,KAM,SMB,DOM,2024-12-23,70000,63
+KAM05,Paula Espinosa,KAM,SMB,PER,2024-03-25,70000,68
