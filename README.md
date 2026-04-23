@@ -1,7 +1,7 @@
 # HelixCore — Business Intelligence Comercial
 
 > **Reto Técnico · Business Intelligence Analyst - Sales · Alegra 2026**  
-> Autor: Fredys Caballero · BI Analyst · [LinkedIn](https://linkedin.com/in/fredyscaballero)
+> Autor: Fredys Caballero · BI Analyst · [LinkedIn](https://www.linkedin.com/in/fcaballerosoto/)
 
 ![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=flat&logo=powerbi&logoColor=black)
 ![Claude AI](https://img.shields.io/badge/Claude%20AI-D97706?style=flat&logo=anthropic&logoColor=white)
@@ -697,8 +697,8 @@ Con el modelo y los 150 medidas construidos, la segunda iteración se enfoca en 
 ## Autor
 
 **Fredys Caballero**  
-Business Intelligence Analyst · Ingeniero Mecánico convertido en analista de datos  
-Experiencia en: Power BI, SQL (Snowflake, MySQL), Python, DAX, Power Query, Google Apps Script  
+Business Intelligence Analyst  
+Experiencia en: Power BI, SQL, Python, DAX, Power Query, Google Apps Script  
 Maestría en Ciencias de Datos con especialización en IA/ML — Universidad DaVinci (2026-2027)
 
 ---
