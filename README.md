@@ -11,7 +11,7 @@
 
 ---
 ## 🎥 Presentación en video (5-7 min)
-> [Ver video completo aquí](https://drive.google.com/file/d/1VIIK4bPf7t-mRZOfRQjf4Y-lOpx56QE-/view?usp=drive_link))
+> [Ver video completo aquí](https://drive.google.com/file/d/1VIIK4bPf7t-mRZOfRQjf4Y-lOpx56QE-/view?usp=drive_link)
 
 ---
 ## Screenshots del dashboard
