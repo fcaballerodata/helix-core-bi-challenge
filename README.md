@@ -1,7 +1,7 @@
-# HelixCore — Business Intelligence Comercial
+# HelixCore — Commercial Intelligence Dashboard
 
-> **Reto Técnico · Business Intelligence Analyst - Sales · Alegra 2026**  
-> Autor: Fredys Caballero · BI Analyst · [LinkedIn](https://www.linkedin.com/in/fcaballerosoto/)
+> **Technical Challenge · Business Intelligence Analyst**
+> Built by [Fredys Caballero](https://www.linkedin.com/in/fcaballerosoto/) · BI Analyst
 
 ![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=flat&logo=powerbi&logoColor=black)
 ![Claude AI](https://img.shields.io/badge/Claude%20AI-D97706?style=flat&logo=anthropic&logoColor=white)
@@ -10,713 +10,255 @@
 ![Power Query](https://img.shields.io/badge/Power%20Query-085041?style=flat)
 
 ---
-## 🎥 Presentación en video 
-> [Ver video completo aquí](https://drive.google.com/file/d/1VIIK4bPf7t-mRZOfRQjf4Y-lOpx56QE-/view?usp=drive_link)
+
+## TL;DR
+
+A full-stack BI solution built in **2 calendar days** for a simulated SaaS B2B company (HelixCore) operating in Latin America. The challenge: build an analytical tool that helps Sales, RevOps, and Executive leadership make faster, better decisions — with imperfect data and a hard deadline.
+
+**Result:** 3 Power BI reports · 150 DAX measures · 13 measure categories · 15 actionable insights · Built using Claude AI + Power BI MCP Server as the primary modeling workflow.
+
+> *"We care much more about how you think than how much you build."* — Challenge brief
 
 ---
-## Screenshots del dashboard
 
-### 📊 Resumen Ejecutivo — CEO / Directores
-![Resumen Ejecutivo](docs/screenshots/01_resumen_ejecutivo.png)
+## 📊 Dashboard Screenshots
 
-### 🎯 Sales Performance — VP Sales
+### Executive Summary — CEO / Directors
+![Executive Summary](docs/screenshots/01_resumen_ejecutivo.png)
+
+### Sales Performance — VP Sales
 ![Sales Performance](docs/screenshots/02_sales_performance.png)
 
-### ⚙️ RevOps & Eficiencia — Operaciones
+### RevOps & Efficiency — Operations
 ![RevOps](docs/screenshots/03_revops_eficiencia.png)
 
 ---
-## Tabla de contenidos
 
-1. [Contexto del reto](#contexto-del-reto)
-2. [Objetivos y entregables](#objetivos-y-entregables)
-3. [Stack tecnológico](#stack-tecnológico)
-4. [Instrucciones de uso](#instrucciones-de-uso)
-5. [Enfoque general y decisiones de diseño](#enfoque-general-y-decisiones-de-diseño)
-6. [Arquitectura del modelo de datos](#arquitectura-del-modelo-de-datos)
-7. [Cómo se construyó — Claude + MCP Server](#cómo-se-construyó--claude--mcp-server)
-8. [Los 3 reportes del dashboard](#los-3-reportes-del-dashboard)
-9. [Insights principales y accionables](#insights-principales-y-accionables)
-10. [Supuestos clave](#supuestos-clave)
-11. [Segunda iteración — Roadmap](#segunda-iteración--roadmap)
-12. [Inventario completo del modelo](#inventario-completo-del-modelo)
-13. [Glosario — Términos, abreviaturas y medidas DAX](#glosario--términos-abreviaturas-y-medidas-dax)
+## 🎥 Video Walkthrough
+
+> [▶ Watch the full presentation (5 min)](https://drive.google.com/file/d/1VIIK4bPf7t-mRZOfRQjf4Y-lOpx56QE-/view?usp=drive_link)
+> Dashboard walkthrough + AI workflow demonstration + key findings presented to executive audience.
 
 ---
 
-## Contexto del reto
+## Business Context
 
-HelixCore es una empresa SaaS B2B/SMB en rápido crecimiento en Latinoamérica. Opera con un modelo híbrido: **self-service**, **sales-assisted** y **partners contables**. El equipo de Sales y RevOps llevaba meses tomando decisiones con poca claridad — había sensación de que había oportunidades que se estaban perdiendo, pero nadie sabía exactamente dónde ni por qué.
+HelixCore is a fast-growing SaaS B2B company in Latin America operating a hybrid commercial model: **self-service**, **sales-assisted**, and **accounting partner channel**. The Sales and RevOps teams were making decisions without visibility — there was a sense that opportunities were being missed, but no one knew exactly where or why.
 
-El reto simula una situación real: información imperfecta, tiempo limitado (2 días calendario), y necesidad de decidir con lo que tienes.
-
-> *"Nos importa mucho más cómo piensas que cuánto construyes."* — Enunciado del reto
+The challenge simulates a real scenario: imperfect data, limited time (2 days), and the need to decide with what you have.
 
 ---
 
-## Objetivos y entregables
+## What I Built
 
-| # | Entregable | Estado |
-|---|---|---|
-| 1 | **Solución analítica** — Dashboard en Power BI con 3 reportes (Ejecutivo, Sales, RevOps) | ✅ Completado |
-| 2 | **Video 5-7 min** — Presentación a directores + recorrido del dashboard + uso de IA | ✅ Completado |
-| 3 | **README** — Instrucciones, enfoque, supuestos, decisiones de diseño, roadmap | ✅ Este documento |
+### 3 Reports — One Narrative
 
-Los criterios de evaluación del reto son:
-- Cómo estructuro un problema ambiguo
-- Cómo priorizo
-- Qué tan bien convierto datos en una herramienta útil para tomar decisiones
-- Uso de IA para trabajar mejor, no solo más rápido
-
----
-
-## Stack tecnológico
-
-| Herramienta | Rol en el proyecto |
-|---|---|
-| **Power BI Desktop** | Dashboard, modelado de datos, visualizaciones |
-| **Claude AI (Sonnet 4.6)** | Asistente BI senior — análisis, DAX, diseño, insights |
-| **Power BI MCP Server** | Protocolo de conexión Claude → Power BI (modelado sin abrir el editor) |
-| **Power Query (M)** | Transformaciones, limpieza, tabla Calendario, parámetros de entorno |
-| **DAX** | 150 medidas organizadas en 13 carpetas temáticas |
-| **Google Drive** | Almacenamiento de los datasets fuente |
-
-### ¿Por qué Power BI y no HTML/React?
-
-El reto dice que el formato es **libre**. Elegí Power BI por tres razones concretas:
-
-**1. Alineación con el negocio.** HelixCore es una empresa SaaS B2B con equipo de Sales y RevOps. Power BI es exactamente la herramienta que este tipo de empresas usa en producción para tomar decisiones. Presentar un dashboard en Power BI demuestra pensar como negocio, no como desarrollador.
-
-**2. Demostración del enfoque AI First.** El reto pide "un enfoque AI first" y "mostrar cómo usaste la IA con momentos concretos en pantalla". Usar el MCP Server para modelar Power BI directamente desde una conversación con Claude es la demostración más concreta de ese enfoque. No es usar IA para generar HTML — es conectar la IA al motor analítico y pedirle que construya el modelo en lenguaje natural.
-
-**3. El reto dice explícitamente "no evaluamos la sofisticación del front-end".** Lo que sí evalúan es claridad, utilidad y accionabilidad. Power BI entrega las tres con filtros interactivos, slicers, y visualizaciones estándar de la industria.
-
----
-
-## Instrucciones de uso
-
-### Prerrequisitos
-
-- Power BI Desktop instalado (versión Marzo 2026 o superior)
-- Los archivos CSV del dataset en una carpeta local
-- Acceso al archivo `RetoTecnicoAlegra.pbix`
-
-### Configurar la ruta de datos
-
-El modelo usa un **parámetro de Power Query** llamado `RutaOrigen` para apuntar a los archivos CSV. Para cambiar la ruta:
-
-1. Abre Power BI Desktop → `Inicio → Transformar datos → Editor de Power Query`
-2. En el panel izquierdo, busca el parámetro **`RutaOrigen`**
-3. Cambia el valor a la ruta donde tienes los CSV en tu equipo
-4. Ejemplo: `C:\Datos\HelixCore\datasets`
-5. Cierra el editor y haz clic en **Aplicar cambios**
-
-### Estructura esperada de carpeta
+The 3 reports follow a descending narrative designed around decision-making, not data display:
 
 ```
-datasets/
-├── leads.csv
-├── deals.csv
-├── funnel_stage_history.csv
-├── sales_activities.csv
-├── call_logs.csv
-├── bot_interactions.csv
-├── product_signals.csv
-├── subscriptions.csv
-├── partner_portfolios.csv
-├── reps.csv
-├── rep_daily_capacity.csv
-└── data_dictionary.csv
+Report 1 (Executive)  →  How is the business performing?
+        ↓
+Report 2 (Sales)      →  Where are the commercial problems?
+        ↓
+Report 3 (RevOps)     →  How do we operate and optimize?
 ```
 
-### Navegar el dashboard
+Each report has a defined audience, adapted language, and metrics specific to that audience's decisions. All reports share synchronized slicers for Period, Country, and Segment.
 
-El archivo tiene 3 páginas (pestañas):
+| Report | Audience | Key Questions |
+|--------|----------|---------------|
+| **Executive Summary** | CEO · Directors | MRR, Win Rate, Churn, Pipeline, Revenue by segment & country |
+| **Sales Performance** | VP Sales · Team leads | Funnel conversion, rep performance, AI bot impact, lost deal reasons |
+| **RevOps & Efficiency** | RevOps · Operations | Time-per-stage, channel performance, experiment results, partner portfolio |
 
-| Pestaña | Audiencia | Descripción |
-|---|---|---|
-| `Resumen Ejecutivo` | CEO / Directores | KPIs globales, tendencia MRR, segmentos, países |
-| `Sales Performance` | VP Sales / Líderes | Funnel, reps, bot IA, razones de pérdida |
-| `RevOps & Eficiencia` | RevOps / Operaciones | Tiempos, canales, capacidad, experimentos, partners |
+### Data Model
 
-Todos los reportes comparten **slicers sincronizados** de Periodo, País y Segmento.
+**Star schema** built from 12 source datasets (CSV), 13 tables in Power BI, 22 relationships (10 active, 12 inactive activated via `USERELATIONSHIP`).
+
+| Table | Type | Rows |
+|-------|------|------|
+| `leads` | Central dimension | 5,200 |
+| `reps` | Dimension | 18 |
+| `Calendario` | Date Table | 243 |
+| `deals` | Fact | 693 |
+| `funnel_stage_history` | Fact | 26,436 |
+| `sales_activities` | Fact | 30,160 |
+| `call_logs` | Fact | 12,594 |
+| `bot_interactions` | Bridge | 3,145 |
+| `product_signals` | Bridge | 5,200 |
+| `subscriptions` | Fact | 303 |
+| `partner_portfolios` | Fact | 164 |
+| `rep_daily_capacity` | Fact | 2,322 |
+
+**150 DAX measures** organized across 13 thematic folders: Funnel · Revenue · Contactability · Bot AI · Retention · Rep Performance · Product Signals · Partners KAM · Time Intelligence · Trends · Executive · Sales Performance · RevOps Efficiency.
 
 ---
 
-## Enfoque general y decisiones de diseño
+## 🔍 Key Insights
 
-### Principio de diseño: de lo general a lo particular
+### For the CEO
+| Insight | Data | Recommended Action |
+|---------|------|--------------------|
+| Only 10.6% of pipeline is captured | $6.75M won out of $63.9M available | Evaluate team capacity to absorb more volume |
+| Accounting firms are the real engine | 27% of leads → 76.6% of MRR, WR 56.4% | Double investment in Partner Program and KAMs |
+| Colombia SMB has critical churn | 19% churn vs 10.9% average | Investigate root causes: pricing, product, or expectations? |
 
-Los 3 reportes siguen una narrativa descendente:
+### For VP Sales
+| Insight | Data | Recommended Action |
+|---------|------|--------------------|
+| Bottleneck at Contacted → Qualified | Only 58% of contacted leads qualify | Review qualification criteria and ICP definition |
+| 97 deals lost to "no response" | 25% of all lost deals | Implement automated follow-up sequence post-proposal |
+| Scheduled calls are 28pp more effective | 85.5% vs 57.6% cold | Standardize pre-scheduled calls as mandatory process |
+| Juan Pablo Mejía: 18pp below average | WR 25.8% vs 43.7% average | Focused coaching and pipeline review |
+
+### For RevOps
+| Insight | Data | Recommended Action |
+|---------|------|--------------------|
+| Proposal stage "cools" over 6.6 days | Slowest stage in the funnel | SLA of 3 days for post-proposal closing |
+| Only 39.7% of time is actual selling | 21.7% is pure admin | Automate admin tasks = +4 rep capacity equivalent |
+| Daniela Rivas manages 45% of partner MRR | $2.73M of $6.06M total | Gradual portfolio redistribution plan |
+| March discounts didn't close more deals | WR dropped -1.5pp with discount | Remove discount as a closing tactic |
+| AI Setup Assistant is the best onboarding | 48.6% WR vs 45.1% Control | Full rollout as standard onboarding experience |
+
+---
+
+## ⚙️ How It Was Built — Claude AI + MCP Server
+
+This project was built using an **AI-first workflow**: Claude AI connected directly to Power BI Desktop via the Power BI MCP Server, enabling natural language data modeling without manually editing the Power BI interface.
+
+### Workflow
 
 ```
-Reporte 1 (Ejecutivo) → ¿Cómo va el negocio?
-    ↓
-Reporte 2 (Sales) → ¿Dónde están los problemas comerciales?
-    ↓
-Reporte 3 (RevOps) → ¿Cómo los operamos y optimizamos?
+Step 0  →  6-layer context prompt (role, context, goal, constraints, format, criteria)
+Step 1  →  Connect Claude to the active .pbix file
+Step 2  →  Full model diagnosis (data types, cardinality, quality issues)
+Step 2.1 → Power Query transformations (UTF-8 encoding, decimal types, calculated columns)
+Step 2.2 → RutaOrigen parameter for environment switching
+Step 2.3 → Calendar table in M language (243 days, Colombia holidays, 15 columns)
+Step 2.4 → Delete 28 incorrectly auto-detected relationships
+Step 2.5 → Create 22 clean star schema relationships
+Step 3  →  150 DAX measures across 13 thematic folders
+Step 4  →  Full model validation (referential integrity, types, KPIs)
+Step 5  →  3 report mockups with live model data
+Step 6  →  Insight extraction via DAX queries from Claude
+Step 7  →  Documentation + presentation
 ```
 
-Cada reporte tiene una audiencia definida, un lenguaje adaptado, y métricas específicas para esa audiencia. No es un dashboard genérico con todos los datos — es una herramienta diseñada para tomar decisiones concretas.
+### The 6-Layer Prompt
 
-### Principio de visualización: señal vs ruido
-
-Siguiendo las recomendaciones del libro *Storytelling with Data* de Cole Nussbaumer Knaflic:
-- Cada visual tiene un propósito específico y una pregunta que responde
-- Los colores codifican significado (verde = bueno, naranja = atención, rojo = alerta)
-- Las etiquetas muestran solo los números relevantes
-- El fondo neutro (`#F1EFE8`) reduce la carga visual
-
-### Priorización del análisis
-
-Con 11 datasets disponibles, prioricé en este orden:
-
-1. **Funnel comercial** (`funnel_stage_history`, `deals`, `leads`) — core del problema
-2. **Performance de reps** (`reps`, `rep_daily_capacity`, `call_logs`) — dónde está la eficiencia
-3. **Señales de producto** (`product_signals`, `bot_interactions`) — el ángulo de IA
-4. **Retención** (`subscriptions`) — el resultado de todo lo anterior
-5. **Partners** (`partner_portfolios`) — el canal con mayor palanca
-
----
-
-## Arquitectura del modelo de datos
-
-### Diagrama simplificado (Star Schema)
+The session started with a structured prompt that defined the full context before any action was taken:
 
 ```
-                    ┌─────────────────┐
-                    │   Calendario    │  ← Date Table oficial
-                    │  (243 fechas)   │      Ene–Ago 2026
-                    └────────┬────────┘
-                             │ activa: leads→Cal
-                             │
-          ┌──────────────────▼──────────────────┐
-          │                leads                 │  ← DIMENSIÓN CENTRAL
-          │           (5,200 registros)           │
-          └──┬──┬──┬──┬──┬──┬──┬──┬─────────────┘
-             │  │  │  │  │  │  │  │
-    M:1 ─────┘  │  │  │  │  │  │  └─── 1:1 BothDir ─── partner_portfolios
-    deals        │  │  │  │  │  └────── 1:1 BothDir ─── subscriptions
-                 │  │  │  │  └───────── 1:1 BothDir ─── product_signals
-    M:1 ─────────┘  │  │  └──────────── 1:1 BothDir ─── bot_interactions
-    funnel_stage     │  │
-    M:1 ─────────────┘  └── call_logs (M:1 activa)
-    sales_activities
+1. ROLE: Senior BI Analyst with 25 years experience in Sales/RevOps,
+   AI and Power BI MCP expertise, SaaS B2B/SMB companies.
 
-          ┌──────────┐
-          │   reps   │  ← DIMENSIÓN (18 registros)
-          └─────┬────┘
-                │ activas: deals (owner_rep_id), rep_daily_capacity
-                │ inactivas: call_logs, sales_activities, funnel, partner_portfolios
+2. CONTEXT: Technical challenge for Alegra. Simulated company: HelixCore.
+   Hybrid model: self-service, sales-assisted, accounting partners.
+
+3. GOAL: Power BI dashboard (3 reports: Executive, Sales, RevOps)
+   + Presentation + README. AI First approach.
+
+4. CONSTRAINTS: 2 days. Prioritize what matters.
+   Deadline: April 23, 2026.
+
+5. FORMAT: Power BI with MCP Server. Storytelling with Data principles.
+
+6. CRITERIA: Clarity, utility, actionability.
+   Think like a business, not a technician.
 ```
 
-### Tablas del modelo
+### Key Problems Solved
 
-| Tabla | Tipo | Filas | Descripción |
-|---|---|---|---|
-| `leads` | Dimensión (central) | 5,200 | Prospectos recibidos |
-| `reps` | Dimensión | 18 | Equipo comercial (SDR, AE, KAM) |
-| `Calendario` | Date Table | 243 | Ene–Ago 2026, festivos Colombia |
-| `deals` | Hecho | 693 | Deals cerrados (won/lost) |
-| `funnel_stage_history` | Hecho | 26,436 | Historial de etapas por lead |
-| `sales_activities` | Hecho | 30,160 | Actividades comerciales |
-| `call_logs` | Hecho | 12,594 | Registro de llamadas |
-| `bot_interactions` | Puente/Dim | 3,145 | Interacciones con bot de IA |
-| `product_signals` | Puente/Dim | 5,200 | PQL score, onboarding, experimentos |
-| `subscriptions` | Hecho | 303 | Suscripciones activas y churned |
-| `partner_portfolios` | Hecho | 164 | Portafolio de partners KAM |
-| `rep_daily_capacity` | Hecho | 2,322 | Capacidad diaria por rep |
-| `_Medidas` | Contenedor | — | Tabla vacía que contiene las 150 medidas |
-
-### Relaciones: 22 en total
-
-- **10 activas** — usadas por defecto en los visuales
-- **12 inactivas** — activadas con `USERELATIONSHIP()` en medidas específicas
-
-### Columnas calculadas añadidas en Power Query
-
-| Tabla | Columna | Descripción |
-|---|---|---|
-| `deals` | `deal_cycle_days` | Días entre creación y cierre del deal |
-| `funnel_stage_history` | `stage_order` | Orden numérico de etapa (1=New, 10=Closed Lost) |
-| `funnel_stage_history` | `stage_duration_hours` | Horas en esa etapa antes de avanzar |
-| `rep_daily_capacity` | `productive_minutes` | on_call + meeting (tiempo de venta real) |
-| `rep_daily_capacity` | `utilization_rate` | productive_minutes / logged_in_minutes |
-| `subscriptions` | `dias_activo` | Días desde inicio hasta churn o fecha corte |
-| `reps` | `rep_display` | Nombre completo con rol (ej: "Laura Gómez (AE)") |
-| `call_logs` | `duration_minutes` | Duración en minutos (desde segundos) |
+| Problem | Solution |
+|---------|----------|
+| Encoding 1252 → truncated names (GÃ³mez, PatiÃ±o) | Changed to Encoding=65001 (UTF-8) on all tables |
+| 28 incorrectly auto-detected relationships | Deleted all, rebuilt 22 clean star schema relationships |
+| 1:1 relationships with OneDirection causing errors | Changed to BothDirections on bridge tables |
+| Calendar ambiguity via multiple paths | Single active relationship (leads→Calendar), others inactive via USERELATIONSHIP |
+| Int64 types on MRR fields (decimals truncated) | Forced Double type via column_operations update |
 
 ---
 
-## Cómo se construyó — Claude + MCP Server
+## 🛠️ Tech Stack
 
-Este proyecto fue construido usando el flujo de trabajo documentado en [PowerBI_MCP_WayOfWork_v2](https://docs.google.com/document/d/1ycC6dJ4LBHsU9q6aFWZky7oiozxYQAVpqj5Vw68qyh8), que define cómo usar Claude Desktop + Power BI MCP Server para modelar datos en lenguaje natural.
+| Tool | Role |
+|------|------|
+| **Power BI Desktop** | Dashboard, data modeling, visualizations |
+| **Claude AI (Sonnet 4.6)** | Senior BI co-pilot — DAX, modeling, insights, design |
+| **Power BI MCP Server** | Protocol connecting Claude → Power BI (modeling via natural language) |
+| **Power Query (M)** | Transformations, cleaning, Calendar table, environment parameters |
+| **DAX** | 150 measures in 13 thematic folders |
+| **Google Drive** | Source dataset storage |
 
-### Flujo de trabajo utilizado
+---
+
+## 📁 Repository Structure
 
 ```
-PARTE 1 — Configuración del entorno
-├── Instalar Power BI Modelling MCP Server (extensión VS Code)
-├── Conectar Claude Desktop con el MCP Server (claude_desktop_config.json)
-└── Verificar conexión al .pbix activo en Power BI Desktop
-
-PARTE 2 — Modelado paso a paso
-├── Paso 0 → Prompt de 6 capas (rol, contexto, objetivo, restricciones, formato, criterios)
-├── Paso 1 → Verificar conexión: "Conéctate al .pbix RetoTecnicoAlegra"
-├── Paso 2 → Diagnóstico completo del modelo (tipos, cardinalidad, fechas, calidad)
-├── Paso 2.1 → Transformaciones Power Query (encoding UTF-8, tipos decimal, columnas calc.)
-├── Paso 2.2 → Parámetro RutaOrigen para cambio de entorno
-├── Paso 2.3 → Tabla Calendario en M (243 días, festivos Colombia, 15 columnas)
-├── Paso 2.4 → Eliminar 28 relaciones auto-detectadas incorrectas
-├── Paso 2.5 → Crear 22 relaciones star schema limpias
-├── Paso 3 → 150 medidas DAX en 13 carpetas temáticas
-├── Paso 4 → Validación completa (integridad referencial, tipos, calendario, KPIs)
-└── Paso 5 → Mockups de los 3 reportes con datos reales del modelo
-
-PARTE 3 — Análisis y entregables
-├── Extracción de insights con consultas DAX desde Claude (.pbix)
-├── Diseño de la presentación (5 slides + video)
-└── Documentación (glosario + README)
+helix-core-bi-challenge/
+├── dashboard/
+│   └── RetoTecnicoAlegra.pbix       ← Main Power BI file
+├── datasets/
+│   ├── leads.csv
+│   ├── deals.csv
+│   ├── funnel_stage_history.csv
+│   ├── sales_activities.csv
+│   ├── call_logs.csv
+│   ├── bot_interactions.csv
+│   ├── product_signals.csv
+│   ├── subscriptions.csv
+│   ├── partner_portfolios.csv
+│   ├── reps.csv
+│   ├── rep_daily_capacity.csv
+│   └── data_dictionary.csv
+├── docs/
+│   └── screenshots/
+│       ├── 01_resumen_ejecutivo.png
+│       ├── 02_sales_performance.png
+│       └── 03_revops_eficiencia.png
+├── README.md                         ← This file (English — portfolio version)
+└── video.md                          ← Video presentation link
 ```
 
-### El prompt de 6 capas
+---
 
-La sesión comenzó con un prompt estructurado en 6 capas que definió el contexto completo antes de ejecutar cualquier acción:
+## 🚀 How to Use
 
-```
-1. ROL: BI Analyst Senior con 25 años de experiencia en Sales/RevOps, 
-   experiencia en IA y Power BI MCP, empresas SaaS B2B/SMB.
+**Prerequisites:** Power BI Desktop (March 2026 or later)
 
-2. CONTEXTO: Reto técnico para Alegra. Empresa simulada: HelixCore.
-   Modelo híbrido: self-service, sales-assisted, partners contables.
-
-3. OBJETIVO: Dashboard en Power BI (3 reportes: Ejecutivo, Sales, RevOps)
-   + Presentación + README. Enfoque AI First.
-
-4. RESTRICCIONES: 2 día de trabajo. Priorizar lo importante.
-   Deadline: 23/Abril/2026.
-
-5. FORMATO: Power BI con MCP Server. Lenguaje en español.
-   Storytelling with Data (Cole Nussbaumer).
-
-6. CRITERIOS: Claridad, utilidad, accionabilidad. 
-   Pensar como negocio, no como técnico.
-```
-
-### Problemas resueltos durante el proceso
-
-| Problema | Solución |
-|---|---|
-| Encoding 1252 → nombres truncados (GÃ³mez, PatiÃ±o) | Cambiar Encoding=65001 (UTF-8) en todas las tablas |
-| 28 relaciones auto-detectadas incorrectas | Eliminar todas y crear 22 relaciones star schema desde cero |
-| Relaciones 1:1 con OneDirection generaban error | Cambiar a BothDirections en bot_interactions, product_signals, subscriptions, partner_portfolios |
-| Ambigüedad Calendario por rutas múltiples | Una sola relación activa (leads→Calendario), demás inactivas con USERELATIONSHIP |
-| `_Medidas` con error "parámetro de columnas NULL" | Cambiar a `#table(type table [...], {})` en lugar de `Table.FromRows` |
-| Tipos Int64 en campos MRR (decimales truncados) | Forzar tipo Double en el modelo via column_operations Update |
-| KAMs sin datos en tabla de portafolio | Crear medidas con USERELATIONSHIP(partner_portfolios[assigned_kam_rep_id], reps[rep_id]) |
+1. Clone or download this repository
+2. Open `dashboard/RetoTecnicoAlegra.pbix` in Power BI Desktop
+3. Go to `Home → Transform Data → Power Query Editor`
+4. Find the **`RutaOrigen`** parameter and update it to your local `datasets/` folder path
+   - Example: `C:\Projects\helix-core-bi-challenge\datasets`
+5. Close the editor and click **Apply Changes**
+6. All 3 report tabs will load with your local data
 
 ---
 
-## Los 3 reportes del dashboard
+## What I'd Do Next
 
-### Reporte 1 — Resumen Ejecutivo
-**Audiencia:** CEO y Directores  
-**Pregunta central:** ¿Cómo va el negocio?
+With the model and 150 measures in place, the next iteration would focus on analytical depth:
 
-Visualizaciones:
-- 5 tarjetas KPI: Leads recibidos, MRR Ganado, Win Rate, Ciclo de venta, Churn Rate
-- Gráfico de barras: MRR ganado por mes (fecha de cierre)
-- Gráfico de barras horizontales: Win Rate por segmento (SMB vs Contadores)
-- Gráfico de barras horizontales: Revenue ganado vs perdido vs pipeline
-- Gráfico de barras horizontales: MRR por país
-- Gráfico de barras: Win Rate por mes
-- Tabla: Resumen por país y segmento (con barras de datos condicionales)
-
-### Reporte 2 — Sales Performance
-**Audiencia:** VP Sales y líderes comerciales  
-**Pregunta central:** ¿Dónde está el problema?
-
-Visualizaciones:
-- Gráfico de barras: Funnel de conversión (7 etapas con % de paso)
-- Gráfico de barras horizontales: Win Rate por AE vs línea de promedio
-- Gráfico combo: Llamadas + tasa de conexión por SDR
-- Tarjetas: Impacto del bot de IA (5 KPIs)
-- Tarjetas: Contactabilidad general (3 KPIs)
-- Gráfico de barras horizontales: Razones de pérdida (5 causas)
-
-### Reporte 3 — RevOps & Eficiencia
-**Audiencia:** RevOps y operaciones  
-**Pregunta central:** ¿Cómo optimizamos?
-
-Visualizaciones:
-- Tarjetas: Días promedio por etapa del funnel (6 etapas)
-- Gráfico de barras horizontales: Win Rate por canal de adquisición
-- Gráfico de barras horizontales: Distribución del tiempo (productivo vs admin vs resto)
-- Gráfico de barras apiladas: Distribución del tiempo por rep
-- Gráfico de barras: Experimento descuento marzo 2026
-- Gráfico de barras: Experimento onboarding (3 variantes)
-- Tabla: Portafolio de partners por KAM
+- **Cohort retention analysis** — month-over-month retention curves by acquisition channel
+- **Best call-time analysis** — which hours have the highest connection rates per SDR
+- **Lead profile analysis** — which buyer_role + company_size combinations have the highest win rate
+- **RLS (Row-Level Security)** — each rep sees only their own data
+- **Live data connection** — replace CSVs with Snowflake or Salesforce integration
+- **Mobile-optimized report** — key KPIs for executive consumption on mobile
 
 ---
 
-## Insights principales y accionables
+## About
 
-### Para el CEO
+**Fredys Caballero** — Business Intelligence Analyst
 
-| Insight | Dato | Acción |
-|---|---|---|
-| Solo capturamos el 10.6% del pipeline | $6.75M ganado de $63.9M disponible | Evaluar capacidad del equipo para absorber más volumen |
-| Contadores es el motor real | 27% de leads → 76.6% del MRR, WR 56.4% | Doblar inversión en Partner Program y KAMs |
-| SMB Colombia tiene churn crítico | 19% churn en COL SMB vs 10.9% promedio | Investigar causas: ¿precio, producto o expectativas? |
+4+ years building BI infrastructure, executive dashboards, and analytical models across high-growth tech companies. Specialized in Power BI, SQL, Python, and data democratization.
 
-### Para VP Sales
-
-| Insight | Dato | Acción |
-|---|---|---|
-| Cuello de botella en Contacted→Qualified | Solo 58% de los contactados califican | Revisar criterios de calificación e ICP |
-| 97 deals perdidos por "sin respuesta" | 25% de todos los deals perdidos | Implementar secuencia automática post-propuesta |
-| Llamadas agendadas son 28pp más efectivas | 85.5% vs 57.6% en frío | Estandarizar agendamiento previo como proceso |
-| Juan Pablo Mejía: 18pp bajo el promedio | WR 25.8% vs 43.7% promedio | Coaching focalizado |
-
-### Para RevOps
-
-| Insight | Dato | Acción |
-|---|---|---|
-| La propuesta se "enfría" en 6.6 días | Etapa más lenta del funnel | SLA de 3 días para cierre post-propuesta |
-| Solo 39.7% del tiempo es venta real | 21.7% es administración pura | Automatizar tareas admin = +4 reps equivalentes |
-| Daniela Rivas gestiona el 45% del MRR de partners | $2.73M de $6.06M | Plan de distribución gradual del portafolio |
-| Descuentos de marzo no cerraron más deals | WR bajó -1.5pp con descuento | Eliminar descuento como táctica de cierre |
-| AI Setup Assistant es el mejor onboarding | 48.6% WR vs 45.1% Control | Rollout completo como estándar de onboarding |
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-fcaballerosoto-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/fcaballerosoto/)
+[![Email](https://img.shields.io/badge/Email-fredyscaballero@gmail.com-EA4335?style=flat&logo=gmail&logoColor=white)](mailto:fredyscaballero@gmail.com)
+[![Portfolio](https://img.shields.io/badge/GitHub-fcaballerodata-181717?style=flat&logo=github&logoColor=white)](https://github.com/fcaballerodata)
 
 ---
 
-## Supuestos clave
-
-1. **Periodo de análisis.** Los leads van de Enero a Junio 2026. Los deals y suscripciones se extienden hasta Julio/Agosto. El Calendario cubre hasta el 31 de Agosto 2026 para incluir todos los datos.
-
-2. **Tipos de datos.** Los campos MRR en los CSV no tienen decimales visibles porque la fuente los truncó como enteros. Se corrigió el tipo a `Double` directamente en el modelo de Power BI para garantizar precisión.
-
-3. **Festivos.** La tabla Calendario incluye los 14 festivos de Colombia para 2026. No se incluyeron festivos de otros países (MEX, DOM, PER, CRI) porque no impactan los KPIs actuales del dashboard.
-
-4. **Año fiscal = año calendario.** Se asumió que el año fiscal de HelixCore empieza en enero. Las métricas YTD usan este supuesto.
-
-5. **Pipeline abierto.** El `MRR Pipeline Abierto` se calculó como la suma del `expected_mrr_usd` de todos los leads que NO tienen un deal cerrado asociado. Es una estimación del potencial sin trabajar, no un valor confirmado.
-
-6. **Quota de KAMs.** Las cuotas de KAM están en USD (90,000 y 70,000) mientras que las de AE y SDR están en número de deals. Son unidades diferentes y no se compararon directamente.
-
-7. **Churn date nula = activo.** Las suscripciones sin `churn_date` se consideran activas a la fecha de corte (5 de agosto 2026).
-
-8. **Experimento de descuento.** El flag `discount_experiment_march_flag = 1` no tiene descripción adicional en el dataset. Se interpretó como deals que participaron en el experimento de descuento de marzo 2026.
-
----
-
-## Segunda iteración — Roadmap
-
-Con el modelo y los 150 medidas construidos, la segunda iteración se enfoca en **profundidad analítica** sobre preguntas específicas que los datos permiten responder pero que no se abordaron en esta entrega.
-
-### Análisis pendientes (datos disponibles)
-
-| Pregunta | Dataset necesario | Complejidad |
-|---|---|---|
-| ¿A qué hora del día tienen mayor tasa de conexión los SDRs? | `call_logs[call_local_hour]`, `call_logs[connected_flag]` | Baja |
-| ¿El delay de handoff del bot afecta el win rate? | `bot_interactions[handoff_to_rep_delay_minutes]`, `deals` | Media |
-| ¿Qué perfil de lead (buyer_role, company_size) tiene mayor win rate? | `leads[buyer_role]`, `leads[company_size_band]`, `deals` | Media |
-| ¿Los leads con PQL alto (≥70) cierran más rápido? | `product_signals[pql_score]`, `deals[deal_cycle_days]` | Media |
-| ¿Los deals con term_months = 12 tienen menos churn? | `deals[term_months]`, `subscriptions[current_status]` | Media |
-| Análisis de cohortes de retención (mes a mes) | `subscriptions[start_date]`, `subscriptions[churn_date]` | Alta |
-| ¿Qué combinación de actividades (calls + meetings + emails) predice cierre? | `sales_activities`, `deals` | Alta |
-
-### Mejoras técnicas del modelo
-
-- **Seguridad a nivel de fila (RLS):** Configurar roles para que cada rep vea solo sus datos
-- **Tablas de parámetros dinámicos:** Para comparar métricas entre sí en un solo visual (What-if)
-- **Integración con fuente live:** Conectar a Snowflake o Salesforce en lugar de CSVs estáticos
-- **Alertas automáticas:** Power BI con alertas cuando el Win Rate cae por debajo del umbral
-- **Reporte móvil:** Versión optimizada para celular con KPIs principales
-
----
-
-## Inventario completo del modelo
-
-### Medidas DAX — 150 medidas en 13 carpetas
-
-#### 01 Funnel (12 medidas)
-| Medida | Descripción |
-|---|---|
-| Total Leads | Total de leads creados en el periodo |
-| Leads con Deal | Leads que llegaron a tener un deal |
-| Tasa Lead a Deal | Tasa de conversión de leads a deal |
-| Total Deals | Total de deals cerrados (ganados + perdidos) |
-| Deals Won | Deals cerrados como ganados |
-| Deals Lost | Deals cerrados como perdidos |
-| Win Rate | Porcentaje de deals ganados sobre total cerrados |
-| Leads SQL | Leads que llegaron a etapa SQL |
-| Leads Demo | Leads que completaron demo |
-| Leads Propuesta | Leads que llegaron a propuesta |
-| Conv SQL a Won | Conversión de SQL a Deal ganado |
-| Conv Demo a Won | Conversión de Demo a Deal ganado |
-
-#### 02 Revenue (11 medidas)
-| Medida | Descripción |
-|---|---|
-| MRR Ganado | MRR total de deals ganados |
-| MRR Perdido | MRR potencial perdido en deals no cerrados |
-| MRR Promedio Won | MRR promedio por deal ganado |
-| MRR Lista Won | Precio de lista total en deals ganados |
-| Revenue Descuentos | Revenue dejado por descuentos en deals ganados |
-| Descuento Promedio Won | % promedio de descuento en deals ganados |
-| MRR Expansion 90d | MRR de expansión en primeros 90 días |
-| MRR Partners | MRR total bajo gestión de partners |
-| MRR Pipeline Esperado | MRR esperado de leads sin deal |
-| Ciclo Venta Dias | Ciclo de venta promedio (todos los deals) |
-| Ciclo Venta Won Dias | Ciclo de venta promedio (solo ganados) |
-
-#### 03 Contactabilidad (11 medidas)
-| Medida | Descripción |
-|---|---|
-| Total Llamadas | Total de llamadas realizadas |
-| Llamadas Conectadas | Llamadas donde el contacto contestó |
-| Tasa Conexion | % llamadas que logran conexión |
-| Llamadas No Conectadas | Llamadas sin conexión (Busy, No Answer, etc.) |
-| Duracion Promedio Llamada (seg) | Duración promedio de llamadas conectadas |
-| Llamadas Agendadas | Llamadas programadas previamente |
-| Tasa Conexion Agendadas | Tasa de conexión en llamadas agendadas |
-| Total Actividades | Total de actividades de ventas |
-| Actividades Humanas | Actividades realizadas por reps humanos |
-| Actividades Bot | Actividades de bot o sistema automatizado |
-| Actividades por Lead | Promedio de actividades por lead |
-
-#### 04 Bot IA (10 medidas)
-| Medida | Descripción |
-|---|---|
-| Leads con Bot | Leads con contacto con el bot |
-| Cobertura Bot | % de leads que tuvieron contacto con bot |
-| Bot Replied | Leads que respondieron al bot |
-| Tasa Respuesta Bot | % que respondió al bot |
-| Meetings por Bot | Meetings agendados por el bot |
-| Tasa Meeting Bot | % de leads con bot que terminaron en meeting |
-| Delay Handoff Bot (min) | Tiempo promedio bot→rep humano |
-| Win Rate con Bot | Win Rate en deals con bot |
-| Win Rate sin Bot | Win Rate en deals sin bot |
-| Lift Win Rate Bot | Diferencia de Win Rate (con bot - sin bot) |
-
-#### 05 Retención (8 medidas)
-| Medida | Descripción |
-|---|---|
-| Suscripciones Activas | Total de suscripciones activas |
-| Suscripciones Churned | Suscripciones canceladas |
-| Churn Rate | % de suscripciones que cancelaron |
-| Activas 30d | Activas en últimos 30 días |
-| Activas 90d | Activas en últimos 90 días |
-| Con Expansion MRR | Suscripciones con expansión en 90 días |
-| Tasa Expansion | % que generó expansión en 90 días |
-| Tasa Pago Anual | % de suscripciones con pago anual (12 meses) |
-
-#### 06 Reps Performance (10 medidas)
-| Medida | Descripción |
-|---|---|
-| Deals Won por Rep | Deals ganados por rep (USERELATIONSHIP) |
-| MRR por Rep | MRR ganado por rep |
-| Win Rate por Rep | Win Rate del rep específico |
-| Llamadas por Rep | Total llamadas del rep (USERELATIONSHIP) |
-| Tasa Conexion por Rep | Tasa de conexión del rep |
-| Actividades por Rep | Total actividades del rep (USERELATIONSHIP) |
-| Minutos Productivos Avg | Minutos productivos diarios promedio |
-| Tasa Utilizacion Rep | Tiempo productivo / tiempo logueado |
-| After Hours Avg (min) | Minutos fuera de horario laboral promedio |
-| Admin Time Avg (min) | Minutos en admin promedio por día |
-
-#### 07 Product Signals (10 medidas)
-| Medida | Descripción |
-|---|---|
-| PQL Score Avg | PQL Score promedio (0-100) |
-| PQL Alto (>=70) | Leads con PQL Score ≥ 70 |
-| Tasa PQL Alto | % de leads con PQL alto |
-| Onboarding Completado | Leads que completaron onboarding |
-| Tasa Onboarding | % de completación de onboarding |
-| Win Rate con Onboarding | Win Rate con onboarding completado |
-| Facturas 14d Avg | Facturas promedio en primeros 14 días |
-| Win Rate Guided Onboarding | WR variante Guided Onboarding |
-| Win Rate Control | WR grupo Control (onboarding estándar) |
-| Win Rate AI Setup | WR variante AI Setup Assistant |
-
-#### 08 Partners KAM (10 medidas)
-| Medida | Descripción |
-|---|---|
-| Total Partners | Partners activos en el modelo |
-| Clientes Gestionados Partners | Total empresas cliente de todos los partners |
-| Clientes Avg por Partner | Promedio de clientes por partner |
-| Soporte Avg por Partner | Promedio de solicitudes de soporte/mes |
-| Partners Alto Valor | Partners con MRR > $500 USD |
-| MRR Avg por Partner | MRR promedio por partner |
-| Partners por KAM | Partners del KAM (USERELATIONSHIP) |
-| Clientes por KAM | Clientes del KAM (USERELATIONSHIP) |
-| MRR Gestion por KAM | MRR bajo gestión del KAM (USERELATIONSHIP) |
-| Soporte Avg por KAM | Soporte promedio del KAM (USERELATIONSHIP) |
-
-#### 09 Tendencia Tiempo (7 medidas)
-| Medida | Descripción |
-|---|---|
-| Leads MTD | Leads del mes en curso (Month-to-Date) |
-| Deals Won MTD | Deals ganados MTD |
-| MRR Ganado MTD | MRR ganado MTD |
-| Deals Won by Close Date | Deals ganados por fecha de cierre |
-| MRR by Close Date | MRR por fecha de cierre |
-| Actividades by Date | Actividades por fecha de actividad |
-| Llamadas by Date | Llamadas por fecha de llamada |
-
-#### 10 Inteligencia de Tiempo (12 medidas)
-| Medida | Descripción |
-|---|---|
-| Leads Mes Anterior | Leads del mes anterior (para MoM) |
-| Leads MoM % | Variación % leads mes sobre mes |
-| MRR Mes Anterior | MRR del mes anterior |
-| MRR MoM % | Variación % MRR mes sobre mes |
-| Won Mes Anterior | Deals ganados del mes anterior |
-| Won MoM % | Variación % deals ganados MoM |
-| MRR YTD | MRR acumulado año (Year-to-Date) |
-| Won YTD | Deals ganados acumulados YTD |
-| Win Rate by Close Date | Win Rate por fecha de cierre |
-| Churn Mensual | Churn del periodo por start_date |
-| Nuevas Suscripciones | Nuevas suscripciones del periodo |
-| Leads YTD | Leads acumulados YTD |
-
-#### 11 Ejecutivo (10 medidas)
-| Medida | Descripción |
-|---|---|
-| MRR Pipeline Abierto | MRR de leads sin deal cerrado |
-| Eficiencia Revenue | MRR ganado / (ganado + perdido) |
-| Won SMB | Deals Won del segmento SMB |
-| Won AccountantFirm | Deals Won del segmento Contadores |
-| Win Rate SMB | Win Rate del segmento SMB |
-| Win Rate AccountantFirm | Win Rate del segmento Contadores |
-| MRR SMB | MRR ganado segmento SMB |
-| MRR AccountantFirm | MRR ganado segmento Contadores |
-| Paises Activos | Países con leads en el periodo |
-| MRR por Dia | Velocidad de revenue por día |
-
-#### 12 Sales Performance (16 medidas)
-| Medida | Descripción |
-|---|---|
-| Funnel New | Leads en etapa New |
-| Funnel Contacted | Leads en etapa Contacted |
-| Funnel Qualified | Leads en etapa Qualified |
-| Conv New a Contacted | Tasa de conversión New → Contacted |
-| Conv Contacted a Qualified | Tasa de conversión Contacted → Qualified |
-| Conv Qualified a SQL | Tasa de conversión Qualified → SQL |
-| Conv SQL a Demo | Tasa de conversión SQL → Demo |
-| Conv Demo a Propuesta | Tasa de conversión Demo → Propuesta |
-| Conv Propuesta a Won | Tasa de conversión Propuesta → Won |
-| Cuota Cumplida % | Deals Won / Quota mensual del rep |
-| Leads por SDR | Leads gestionados por SDR en etapa New |
-| Lost: Too Expensive | Deals perdidos por precio alto |
-| Lost: Competencia | Deals perdidos por competencia |
-| Lost: Sin Respuesta | Deals perdidos sin respuesta post-propuesta |
-| Lost: Sin Presupuesto | Deals perdidos por falta de presupuesto |
-| Lost: Feature Faltante | Deals perdidos por funcionalidad faltante |
-
-#### 13 RevOps Efficiency (18 medidas)
-| Medida | Descripción |
-|---|---|
-| Dias en New | Días promedio en etapa New |
-| Dias en Attempted | Días promedio en etapa Attempted |
-| Dias en Qualified | Días promedio en etapa Qualified |
-| Dias en SQL | Días promedio en etapa SQL |
-| Dias en Demo | Días promedio en etapa Demo |
-| Dias en Proposal | Días promedio en etapa Proposal |
-| WR Exp Descuento | Win Rate con experimento descuento |
-| WR Sin Exp Descuento | Win Rate sin experimento descuento |
-| Lift Exp Descuento | Diferencia de Win Rate (lift del descuento) |
-| MRR Avg Exp Descuento | MRR promedio en experimento de descuento |
-| Leads Partner Program | Leads del canal Partner Program |
-| WR Partner Program | Win Rate del canal Partner Program |
-| WR Webinar | Win Rate del canal Webinar |
-| WR Paid Search | Win Rate del canal Paid Search |
-| Actividades por Deal Won | Actividades humanas por deal ganado |
-| Admin Time % | % del tiempo en tareas admin |
-| Tiempo Productivo % | % del tiempo en venta real |
-| After Hours Total (hrs) | Horas fuera de horario del equipo |
-
----
-
-## Glosario — Términos, abreviaturas y medidas DAX
-
-### Roles del equipo comercial
-
-| Término | Significado | En HelixCore |
-|---|---|---|
-| **SDR** | Sales Development Representative | Hace primer contacto, llama, agenda reuniones. No cierra ventas. |
-| **AE** | Account Executive (Ejecutivo de cuenta) | Cierra la venta. Hace demos, negocia, firma. |
-| **KAM** | Key Account Manager (Gerente de cuentas clave) | Gestiona relación con firmas contables aliadas (partners). |
-| **Inbound** | SDR que atiende leads que llegaron solos | Sofía Ríos, Mateo Silva |
-| **Outbound** | SDR que sale a buscar prospectos | Ana Torres, Diego Valdez |
-
-### Segmentos
-
-| Término | Significado |
-|---|---|
-| **SMB** | Small & Medium Business — Empresas que compran para su propio uso |
-| **AccountantFirm** | Firmas contables que usan HelixCore para gestionar clientes |
-| **Contadores** | Nombre en español de AccountantFirm |
-
-### Etapas del funnel
-
-| Etapa | Descripción |
-|---|---|
-| **New** | Lead recibido, aún no contactado |
-| **Attempted** | Se intentó contactar, aún no hay respuesta |
-| **Working** | El bot o sistema está procesando el contacto |
-| **Contacted** | Primer contacto exitoso |
-| **Qualified** | El SDR confirmó que tiene perfil para comprar |
-| **SQL** | Sales Qualified Lead — Pasó al AE para trabajar |
-| **Demo Completed** | El AE hizo la demostración del producto |
-| **Proposal** | Se envió la propuesta económica |
-| **Closed Won** | Deal ganado, cliente firmó |
-| **Closed Lost** | Deal perdido |
-
-### Términos de métricas
-
-| Término | Siglas | Descripción |
-|---|---|---|
-| **Win Rate** | WR | % de deals ganados sobre total cerrados |
-| **Monthly Recurring Revenue** | MRR | Ingreso mensual recurrente por suscripciones |
-| **Churn Rate** | — | % de clientes que cancelaron |
-| **Pipeline** | — | Total de oportunidades de revenue disponibles |
-| **Ciclo de venta** | — | Días desde creación del deal hasta cierre |
-| **Lift** | — | Diferencia de rendimiento entre dos grupos |
-| **Delay Handoff** | — | Tiempo bot → rep humano (minutos) |
-| **Tasa de conexión** | TC | % de llamadas donde el prospecto contesta |
-| **Product Qualified Lead Score** | PQL | Puntaje 0-100 de engagement con el producto |
-| **Month-over-Month** | MoM | Variación porcentual vs mes anterior |
-| **Year-to-Date** | YTD | Acumulado desde inicio del año |
-| **Month-to-Date** | MTD | Acumulado desde inicio del mes |
-| **Puntos porcentuales** | pp | Diferencia entre dos porcentajes (40%→43% = 3pp) |
-| **Service Level Agreement** | SLA | Tiempo máximo acordado para completar una tarea |
-| **Ideal Customer Profile** | ICP | Perfil del cliente con mayor probabilidad de comprar |
-
-### Términos de tecnología
-
-| Término | Descripción |
-|---|---|
-| **MCP Server** | Model Context Protocol — Protocolo que conecta Claude directamente con Power BI Desktop |
-| **Star Schema** | Modelo de datos en estrella: tabla de dimensiones en el centro, hechos alrededor |
-| **DAX** | Data Analysis Expressions — Lenguaje de fórmulas de Power BI |
-| **Power Query (M)** | Lenguaje de transformación de datos en Power BI |
-| **USERELATIONSHIP** | Función DAX para activar relaciones inactivas del modelo |
-| **RutaOrigen** | Parámetro Power Query que define la ruta de los archivos fuente |
-| **AI First** | Enfoque donde la IA es el copiloto principal del proceso de trabajo |
-| **Rollout** | Despliegue o activación de una funcionalidad para todos los usuarios |
-
----
-
-## Autor
-
-**Fredys Caballero**  
-Business Intelligence Analyst  
-Experiencia en: Power BI, SQL, Python, DAX, Power Query, Google Apps Script  
-Maestría en Ciencias de Datos con especialización en IA/ML — Universidad DaVinci (2026-2027)
-
----
-
-*Documento generado como parte del Reto Técnico de Alegra — Abril 2026*  
-*Construido con Claude AI (Sonnet 4.6) + Power BI MCP Server*
+*Built with Claude AI (Sonnet 4.6) + Power BI MCP Server · April 2026*
